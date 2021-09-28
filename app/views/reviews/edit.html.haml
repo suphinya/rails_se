@@ -1,0 +1,7 @@
+%h2 Update a Movie review
+ 
+= form_tag movie_reviews_path(@movie,@review), :method => :put do
+  %label How many potatoes:
+  = select_tag 'review[potatoes]', options_for_select(1..5)
+  = submit_tag 'Update Review'
+  = link_to 'Cancel', movie_path(@movie)

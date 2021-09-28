@@ -20,6 +20,10 @@ class MoviesController < ApplicationController
       id = params[:id] # retrieve movie ID from URI route
       @movie = Movie.find(id) # look up movie by unique ID
       # will render app/views/movies/show.html.haml by default
+
+      
+      @review = Review.find_by_movie_id(id)
+      
     rescue ActiveRecord::RecordNotFound
       flash[:warning] = "Movie is not found."
       redirect_to movies_path
@@ -38,7 +42,7 @@ class MoviesController < ApplicationController
     @movie = Movie.new(movie_params)
     if @movie.save
       flash[:notice] = "#{@movie.title} was successfully created."
-      redirect_to movies_path
+      redirect_to new_movie_review_path(@movie) 
     else
       render 'new' # note, 'new' template can access @movie's field values!
     end
