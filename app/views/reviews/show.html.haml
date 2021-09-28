@@ -3,8 +3,8 @@
 %ul#details
   %li
     Reviews:
-    = @review.potatoes
-
-
+    - @review.each do |review|
+      %br
+        = review.potatoes
 
 = link_to 'Back to movie list', movies_path

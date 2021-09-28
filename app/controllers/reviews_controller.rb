@@ -58,15 +58,17 @@ class ReviewsController < ApplicationController
     end
   end
 
+  ############ show #################
   def show
     begin
       id_movie = params[:movie_id]
       #id_review = params[:id]
       @movie = Movie.find(id_movie)
-      @review = Review.find_by_movie_id(id_movie)
+      @review = Review.where(movie_id: id_movie)
     rescue ActionController::UrlGenerationError
       flash[:warning] = "You not have review."
     end
   end
+
 
 end

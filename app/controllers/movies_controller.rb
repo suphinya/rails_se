@@ -1,6 +1,8 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
 
+  before_action :authenticate_user!
+
   ############### index ##############
   
   def index
