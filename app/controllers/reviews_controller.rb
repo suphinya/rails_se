@@ -65,6 +65,8 @@ class ReviewsController < ApplicationController
       @movie = Movie.find(id_movie)
       @review = Review.where(movie_id: id_movie)
       @review_user = @review.find_by_user_id(@current_user[:id])
+      
+      
 
       if @review_user == nil
         @status = false
