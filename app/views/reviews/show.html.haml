@@ -1,10 +1,22 @@
-%h2 Details about #{@movie.title}
+%h2 Reviews of #{@movie.title}
 
 %ul#details
+  
+  My Review : 
+  - if @status == false
+    = link_to 'Create My Review' , new_movie_review_path(@movie) 
+  - elsif @status == true
+    = @review_user.potatoes
+    %br
+      = link_to 'Edit My Review' , edit_movie_review_path(@movie , @review_user)
+    
+        
   %li
-    Reviews:
+    All Reviews:
     - @review.each do |review|
       %br
         = review.potatoes
 
-= link_to 'Back to movie list', movies_path
+
+%br
+= link_to 'Back to movie details', movie_path(@movie)

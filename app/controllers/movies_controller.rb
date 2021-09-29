@@ -1,7 +1,7 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user! , :except => [:index]
 
   ############### index ##############
   
@@ -22,8 +22,7 @@ class MoviesController < ApplicationController
       id = params[:id] # retrieve movie ID from URI route
       @movie = Movie.find(id) # look up movie by unique ID
       # will render app/views/movies/show.html.haml by default
-
-      
+  
       @review = Review.find_by_movie_id(id)
       
     rescue ActiveRecord::RecordNotFound

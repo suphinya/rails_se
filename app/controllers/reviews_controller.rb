@@ -32,27 +32,27 @@ class ReviewsController < ApplicationController
   def create
     @current_user.reviews << @movie.reviews.build(review_info)
     flash[:notice] = "#{@movie.title} review was successfully given."
-    redirect_to movie_path(@movie)
+    redirect_to movie_review_path(@movie,@review)
   end
   
   ############ update #################
 
   def edit
     id_movie = params[:movie_id]
-    id_review = params[:id]
     @movie = Movie.find(id_movie)
-    @review = Review.find(id_review)
+    @review = Review.where(movie_id: id_movie)
+    @review_user = @review.find_by_user_id(@current_user[:id])
   end
 
   def update
     id_movie = params[:movie_id]
-    id_review = params[:id]
     @movie = Movie.find(id_movie)
-    @review = Review.find(id_review)
+    @review = Review.where(movie_id: id_movie)
+    @review_user = @review.find_by_user_id(@current_user[:id])
 
-    if @review.update_attributes(review_info) 
+    if @review_user.update_attributes(review_info) 
       flash[:notice] = "#{@movie.title} review was successfully updated."
-      redirect_to movie_path(@movie)
+      redirect_to movie_review_path(@movie,@review)
     else
       render 'edit'
     end
@@ -62,9 +62,16 @@ class ReviewsController < ApplicationController
   def show
     begin
       id_movie = params[:movie_id]
-      #id_review = params[:id]
       @movie = Movie.find(id_movie)
       @review = Review.where(movie_id: id_movie)
+      @review_user = @review.find_by_user_id(@current_user[:id])
+
+      if @review_user == nil
+        @status = false
+      else
+        @status = true
+      end
+
     rescue ActionController::UrlGenerationError
       flash[:warning] = "You not have review."
     end
