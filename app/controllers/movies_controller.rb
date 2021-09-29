@@ -1,8 +1,14 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
 
-  before_action :authenticate_user! , :except => [:index]
-
+  before_action :require_login , :except => [:index , :show]
+  
+  def require_login
+    unless @current_user
+      flash[:warning] = 'You must be logged in before.'
+      redirect_to movies_path
+    end
+  end
   ############### index ##############
   
   def index

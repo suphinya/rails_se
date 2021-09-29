@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
-  before_action :has_user_and_movie, :only => [:new, :create]
+  
+  before_action :has_user_and_movie, :only => [:new, :create ,:show]
   protected
   def has_user_and_movie
     unless @current_user
@@ -32,7 +33,7 @@ class ReviewsController < ApplicationController
   def create
     @current_user.reviews << @movie.reviews.build(review_info)
     flash[:notice] = "#{@movie.title} review was successfully given."
-    redirect_to movie_review_path(@movie,@review)
+    redirect_to movie_path(@movie)
   end
   
   ############ update #################
@@ -65,7 +66,6 @@ class ReviewsController < ApplicationController
       @movie = Movie.find(id_movie)
       @review = Review.where(movie_id: id_movie)
       @review_user = @review.find_by_user_id(@current_user[:id])
-      
       
 
       if @review_user == nil

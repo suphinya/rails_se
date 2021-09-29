@@ -3,6 +3,16 @@
 
 class Movie < ActiveRecord::Base
   has_many :reviews
+
+
+  scope :with_good_reviews, lambda { |threshold|
+    Movie.joins(:reviews).group(:movie_id).
+      having(['AVG(reviews.potatoes) > ?', threshold])
+  }
+  scope :for_kids, lambda {
+    Movie.where('rating in ?', %w(G PG))
+  }
+  
   
   def self.all_ratings ; %w[G PG PG-13 R NC-17] ; end #  shortcut: array of strings
   validates :title, :presence => true
@@ -18,22 +28,11 @@ class Movie < ActiveRecord::Base
   def grandfathered?
     release_date && release_date >= @@grandfathered_date
   end
-end
-# try in console:
-m = Movie.new(:title => '', :rating => 'RG', :release_date => '1929-01-01')
-# force validation checks to be performed:
-m.valid?  # => false
-m.errors[:title] # => ["can't be blank"]
-m.errors[:rating] # => ["is not included in the list"]
-m.errors[:release_date] # => ["must be 1930 or later"]
-m.errors.full_messages # => ["Title can't be blank", "Rating is not included in the list", "Release date must be 1930 or later"]
 
-############## set name movie start with large ############## 
-
-class Movie < ActiveRecord::Base
   before_save :capitalize_title
   def capitalize_title
     self.title = self.title.split(/\s+/).map(&:downcase).
       map(&:capitalize).join(' ')
   end
+
 end
