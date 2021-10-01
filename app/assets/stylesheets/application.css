@@ -83,3 +83,29 @@ form label {
 br {
   margin: 10px 10px;
 }
+
+#login {
+  font-size: 12pt;
+  font-style: normal;
+  color: darkolivegreen;
+  text-align: right;
+}
+
+div.container {
+  display: flex;
+}
+div.left, div.right {
+  width: 50%;
+  height: 50%;
+}
+p.comments {
+  margin: 5px;
+  padding: 5px;
+  background-color: #dbd9d9;
+  border-radius: 5px;
+  font-size: 12pt;
+}
+p.username {
+  text-align: right;
+  font-style: italic;
+}

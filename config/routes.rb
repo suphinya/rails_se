@@ -1,5 +1,6 @@
 Myrottenpotatoes::Application.routes.draw do
-  #devise_for :users
+  
+  #mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   
   resources :movies do
     resources :reviews

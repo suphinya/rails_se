@@ -9,10 +9,12 @@ class MoviesController < ApplicationController
       redirect_to movies_path
     end
   end
+  
   ############### index ##############
   
   def index
     @movies = Movie.all
+    
   end
   
   ############### new ##############
@@ -84,4 +86,14 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
   
+
+  ############### filter ##############
+
+  def movies_with_filters_2
+    @movies = Movie.with_good_reviews(params[:threshold])
+    %w(for_kids with_many_fans recently_reviewed).each do |filter|
+      @movies = @movies.send(filter) if params[filter]
+    end
+  end
+
 end

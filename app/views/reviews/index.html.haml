@@ -1,0 +1,26 @@
+%h2 All reviews of #{@movie.title}
+%div.container
+
+  %div.left
+    %h2 
+      Users
+    - @review.each do |review|
+      %li #{review.user[:name]} : #{review.potatoes}
+
+  %div.right
+    %h1 
+      Comments
+    - @review.each do |review|
+      - if review.comments != nil
+        %p.comments
+          = review.comments
+        %p.username
+          = review.user[:name]
+
+%br
+= link_to 'Show My Reviews' , movie_review_path(@movie,@review)
+%br
+
+= link_to 'Back to movie details', movie_path(@movie)
+%br
+

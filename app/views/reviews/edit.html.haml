@@ -1,7 +1,19 @@
 %h2 Update a #{@movie.title} review
  
-= form_tag movie_review_path(@movie , @review_user), :method => :put do
+= form_tag movie_review_path(@movie , @review), :method => :put do
+
+  My old Review :
+  = @review.potatoes
+
+  %br
+
   %label How many potatoes:
-  = select_tag 'review[potatoes]', options_for_select(1..5)
+
+  = select_tag 'review[potatoes]', options_for_select((1..5),@review.potatoes )
+
+  %label Comment :
+  = text_area :review, :comments
+
+  %br
   = submit_tag 'Update Review'
   = link_to 'Cancel', movie_path(@movie)

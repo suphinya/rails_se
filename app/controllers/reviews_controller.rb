@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
   def has_user_and_movie
     unless @current_user
       @movie = Movie.find_by_id(params[:movie_id])
-      flash[:warning] = 'You must be logged in to create a review.'
+      flash[:warning] = 'You must be logged in.'
       redirect_to movie_path(@movie)
     end
     unless (@movie = Movie.find_by_id(params[:movie_id]))
@@ -15,6 +15,14 @@ class ReviewsController < ApplicationController
   end
 
   public
+  
+  ############ index ############
+
+  def index
+    id_movie = params[:movie_id]
+    @movie = Movie.find(id_movie)
+    @review = Review.where(movie_id: id_movie)
+  end
 
   ############ new ##############
 
@@ -25,7 +33,7 @@ class ReviewsController < ApplicationController
   ########### review info #########
 
   def review_info
-    params.require(:review).permit(:potatoes, :user, :movie)
+    params.require(:review).permit(:potatoes, :user, :movie, :comments)
   end
 
   ############ create #################
@@ -41,8 +49,8 @@ class ReviewsController < ApplicationController
   def edit
     id_movie = params[:movie_id]
     @movie = Movie.find(id_movie)
-    @review = Review.where(movie_id: id_movie)
-    @review_user = @review.find_by_user_id(@current_user[:id])
+    @review_a = Review.where(movie_id: id_movie)
+    @review = @review_a.find_by_user_id(@current_user[:id])
   end
 
   def update

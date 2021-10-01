@@ -1,4 +1,4 @@
-%h2 Reviews of #{@movie.title}
+%h2 My Reviews of #{@movie.title}
 
 %ul#details
   
@@ -9,18 +9,14 @@
 
   - elsif @status == true
     = @review_user.potatoes
+    potatoes
+    %br 
+    Comment :
+    = @review_user.comments
     %br
       = link_to 'Edit My Review' , edit_movie_review_path(@movie , @review_user)
     
-        
-  %li
-    All Reviews:
-    %br
-      - @review.each do |review|
-        = "#{review.user[:name]} :  #{review.potatoes}"
-        %br
-
-
-
+= link_to 'All Reviews' , movie_reviews_path(@movie)
+%br        
 = link_to 'Back to movie details', movie_path(@movie)
 %br

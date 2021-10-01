@@ -1,5 +1,10 @@
 %h1 All Movies
 
+
+-#= check_box_tag 'for_kids'
+-#= label_tag(:for_kids, "For Kids")
+
+
 %table#movies
   %thead
     %tr
@@ -8,7 +13,9 @@
       %th Rating
       %th Release Date
       %th More Info
+      %th Review
   %tbody
+
     - @movies.order('title').each_with_index do |movie, index|
       %tr
         %td= index+1
@@ -16,5 +23,7 @@
         %td= movie.rating
         %td= movie.release_date.strftime('%d-%b-%Y')
         %td= link_to "More about #{movie.title}", movie_path(movie)
+        %td= link_to "Review of #{movie.title}", movie_reviews_path(movie)
  
 = link_to 'Add new movie', new_movie_path       
+
