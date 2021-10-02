@@ -72,4 +72,4 @@ gem 'omniauth', '~> 1.9.1'
 gem 'omniauth-facebook'
 gem 'omniauth-rails_csrf_protection'
 
-gem 'themoviedb-api'
+gem 'themoviedb'

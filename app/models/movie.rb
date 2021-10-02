@@ -34,4 +34,26 @@ class Movie < ActiveRecord::Base
       map(&:capitalize).join(' ')
   end
 
+  class Movie::InvalidKeyError < StandardError ; end
+
+  def self.find_in_tmdb(string)
+    begin
+      Tmdb::Movie.find(string)
+    rescue Tmdb::InvalidApiKeyError
+      raise Movie::InvalidKeyError, 'Invalid API key'
+    end
+  end
+
+  def self.get_from_tmdb(id)
+    begin
+      Tmdb::Movie.detail(id)
+    rescue Tmdb::InvalidApiKeyError
+      raise Movie::InvalidKeyError, 'Invalid API key'
+    end
+  end
+
+  def name_with_rating
+    "#{self.title} (#{self.rating})"
+  end
+
 end

@@ -1,9 +1,7 @@
 %h1 All Movies
 
-
 -#= check_box_tag 'for_kids'
 -#= label_tag(:for_kids, "For Kids")
-
 
 %table#movies
   %thead
@@ -27,3 +25,9 @@
  
 = link_to 'Add new movie', new_movie_path       
 
+%h1 Search TMDb for a movie
+
+= form_tag movies_search_tmdb_path , :method => :get do
+  %label{:for => 'search_terms'} Search Terms
+  = text_field_tag "search_terms"
+  = submit_tag 'Search TMDb'

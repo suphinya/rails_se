@@ -96,4 +96,33 @@ class MoviesController < ApplicationController
     end
   end
 
+  ############## tmdb search ############
+  
+  def search_tmdb
+    @search_terms = params[:search_terms]
+    @movies = Movie.find_in_tmdb(@search_terms)
+
+    if @movies
+      render 'tmdb'
+    else
+      flash[:warning] = "'#{params[:search_terms]}' was not found in TMDb."
+      redirect_to movies_path
+    end 
+  end
+
+  def create_from_tmdb
+    movie_id = params[:tmdb_id]
+    m = Movie.get_from_tmdb(movie_id)
+    @movie = Movie.new({
+      :title => m["title"], 
+      :rating => "",    
+      :release_date => m["release_date"], 
+      :description => m["overview"]
+      })
+    if @movie.save
+      flash[:notice] = "'#{@movie.title}' was successfully created."
+      redirect_to new_movie_review_path(@movie)
+    end
+  end
+
 end

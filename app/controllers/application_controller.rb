@@ -8,4 +8,11 @@ class ApplicationController < ActionController::Base
 		@current_user = current_user
 	end
 	
+	require 'themoviedb'
+      Tmdb::Api.key("5cac13bbd8f3425d3f00d485015680bb")
+
+    def set_config
+  	  @configuration = Tmdb::Configuration.new
+    end
+    
 end

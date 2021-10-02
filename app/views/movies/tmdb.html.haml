@@ -1,0 +1,12 @@
+%h1= 'Search Results for ' + @search_terms
+= link_to 'Back', movies_path
+%table#tmdb_movies
+    %thead
+        %tr
+            %th No.
+            %th Movie Poster
+            %th Movie Title
+            %th Release Date
+            %th 
+    %tbody
+        = render :partial=>'tmdb_form', :collection=>@movies
