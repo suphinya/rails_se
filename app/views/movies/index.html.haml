@@ -1,7 +1,15 @@
-%h1 All Movies
+%h1 Search TMDb for a movie
+
+= form_tag movies_search_tmdb_path , :method => :get do
+  %label Search Terms
+  = text_field_tag "search_terms"
+  = submit_tag 'Search TMDb'
+
 
 -#= check_box_tag 'for_kids'
 -#= label_tag(:for_kids, "For Kids")
+
+%h1 All Movies
 
 %table#movies
   %thead
@@ -11,7 +19,6 @@
       %th Rating
       %th Release Date
       %th More Info
-      %th Review
   %tbody
 
     - @movies.order('title').each_with_index do |movie, index|
@@ -21,13 +28,8 @@
         %td= movie.rating
         %td= movie.release_date.strftime('%d-%b-%Y')
         %td= link_to "More about #{movie.title}", movie_path(movie)
-        %td= link_to "Review of #{movie.title}", movie_reviews_path(movie)
  
 = link_to 'Add new movie', new_movie_path       
 
-%h1 Search TMDb for a movie
+%br
 
-= form_tag movies_search_tmdb_path , :method => :get do
-  %label{:for => 'search_terms'} Search Terms
-  = text_field_tag "search_terms"
-  = submit_tag 'Search TMDb'

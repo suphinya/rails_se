@@ -11,14 +11,14 @@
     %h1 
       Comments
     - @review.each do |review|
-      - if review.comments != nil
+      - if review.comments != ""
         %p.comments
           = review.comments
         %p.username
           = review.user[:name]
 
 %br
-= link_to 'Show My Reviews' , movie_review_path(@movie,@review)
+= link_to 'Show My Reviews' , movie_review_path(@movie,@review) if not @review.nil?
 %br
 
 = link_to 'Back to movie details', movie_path(@movie)

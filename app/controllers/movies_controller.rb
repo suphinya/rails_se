@@ -112,12 +112,12 @@ class MoviesController < ApplicationController
 
   def create_from_tmdb
     movie_id = params[:tmdb_id]
-    m = Movie.get_from_tmdb(movie_id)
+    mov = Movie.get_from_tmdb(movie_id)
     @movie = Movie.new({
-      :title => m["title"], 
+      :title => mov["title"], 
       :rating => "",    
-      :release_date => m["release_date"], 
-      :description => m["overview"]
+      :release_date => mov["release_date"], 
+      :description => mov["overview"]
       })
     if @movie.save
       flash[:notice] = "'#{@movie.title}' was successfully created."

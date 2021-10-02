@@ -109,3 +109,28 @@ p.username {
   text-align: right;
   font-style: italic;
 }
+
+div.tmdb-card {
+  display: grid;
+  margin: 10px;
+  padding: 10px 10px 10px 10px;
+  border-radius: 5px;
+  background-color: #dbd9d9;
+  grid-gap: 5px;
+  grid-template-columns: 150px auto;
+  max-width: fit-content;
+  max-height: auto;
+}
+div.tmdb-poster {
+  grid-row: 1 / 5;
+}
+img.tmdb-poster {
+  width: 150px;
+  height: auto;
+}
+.tmdb-title, .tmdb-rl-date, .tmdb-description, .tmdb-add-in-db {
+  padding: 0 0 0 15px;
+}
+p.tmdb-title {
+  font-size: 16pt;
+}
